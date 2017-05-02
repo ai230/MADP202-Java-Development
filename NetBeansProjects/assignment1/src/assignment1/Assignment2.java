@@ -5,11 +5,17 @@
  */
 package assignment1;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 /**
  *
  * @author CICCC-CIRAC
  */
 public class Assignment2 {
+    private static Object cal;
     public static void main(String[] args) {
     //PART 2
     //1)
@@ -25,34 +31,40 @@ public class Assignment2 {
         System.out.println("");
         
     //2)
-    //        •	Write a Java program that reads an integer between 0 and 1000 and adds all the digits in the integer. 
-    //Test Data
-    //Input an integer between 0 and 1000: 565
-    //Expected Output :
-    //The sum of all digits in 565 is 16
-    //        int num = 0;
-    //        int digit = 0;
-    //        int totalDigit = 0;
-    //        for(int i = 0; i < 100; i++){
-    //            while (num <= i) {
-    //                digit = digit + num % 10;
-    //                num = num / 10;
-    //                totalDigit = totalDigit + digit;
-    //                num++;
-    //                System.out.println(totalDigit);
-    //            }
-    //            
-    //            
-    //        }
-            //System.out.println(totalDigit);
-            
+    /* Write a Java program that reads an integer between 0 and 1000 and adds all the digits in the integer. 
+    Test Data
+    Input an integer between 0 and 1000: 565
+    Expected Output :
+    The sum of all digits in 565 is 16*/
+        int integer = 565;
+        int digit = 0;
+        int totalDigit = 0;
+        int num = integer;
+            while (num > 0) {
+                digit = digit + num % 10;
+                num = num / 10;
+            }             
+        System.out.println("The sum of all digits in " + integer + " is " + digit);     
+        System.out.println("");
+        
     //3)
     /*•	Write a Java program that prints the current time in GMT. 
         Test Data
-        Input the time zone offset to GMT: 256
+        Input the time zone offset to GMT: 2:56pm
         Expected Output :
         Current time is 23:40:24*/
-
+        
+        Date now = new Date();
+        System.out.println("Date() = " + now);
+        System.out.println("Locale Code = " + Locale.getDefault());
+        System.out.println("");
+        TimeZone tz = TimeZone.getDefault();
+        System.out.println("TimeZome ID = " + tz.getID());
+        System.out.println("TimeZome名称 = " + tz.getDisplayName());
+        System.out.println("TimeZome Offset  = " + tz.getRawOffset());
+        
+        System.out.println("");
+        
     //4)
     /*•	Write a Java program to takes the user for a distance (in meters) and the time was taken (as three numbers: hours, minutes, seconds), and display the speed, in meters per second, kilometers per hour and miles per hour (hint: 1 mile = 1609 meters). 
     Test Data
