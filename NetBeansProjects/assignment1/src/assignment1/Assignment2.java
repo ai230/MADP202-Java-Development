@@ -65,14 +65,15 @@ public class Assignment2 {
     Your speed in km/h is 0.42089513 
     Your speed in miles/h is 0.26158804*/
     
-    int distance = 2500;
-    int hour = 5;
-    int mins = 56;
-    int sec = 23;
+    double distance = 2500;
+    double hour = 5;
+    double mins = 56;
+    double sec = 23;
     double speed = 0;
-    System.out.println("Your speed in meters/second is " + (double)sec/distance);
-    System.out.println("Your speed in meters/second is " + (double)hour/distance*100);
-    System.out.println("Your speed in meters/second is " + (double)sec/distance);
+    double totalSec = (hour * 60 * 60) + (mins * 60) + sec;
+    System.out.println("Your speed in meters/second is " + (double)distance/totalSec);
+    System.out.println("Your speed in meters/second is " + (double)(distance/1000)/(totalSec / 60 / 60));
+    System.out.println("Your speed in meters/second is " + (double)(distance* 0.000621371)/totalSec * 60 * 60);
     System.out.println("");
     
     //5)
