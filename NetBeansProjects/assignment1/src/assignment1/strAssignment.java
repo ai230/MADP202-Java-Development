@@ -35,6 +35,9 @@ public class strAssignment {
         System.out.println(palStr + s + "palindrome.");
         System.out.println("");
         
+        //6)
+        /*Write a program to compute if one string is a rotation of another. 
+          For example, pit is rotation of tip as pit has same character as tip.*/
         StringBuffer rotateStr1 = new StringBuffer("tip");
         StringBuffer rotateStr2 = new StringBuffer("pti");
         StringBuffer rotateStr3 = new StringBuffer("");
