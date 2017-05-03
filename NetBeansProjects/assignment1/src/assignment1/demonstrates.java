@@ -12,26 +12,29 @@ package assignment1;
 public class demonstrates {
     public static void main(String[] args) {
 
-        StringBuffer str = new StringBuffer("hello");
-        StringBuilder str1 = new StringBuilder("h");
+        StringBuffer str = new StringBuffer("helloo");
         System.out.println(str);
         char c = 0;
         char comChar = 0;
-        for(int i = 0; i < 5; i++){
+        int length = str.length()-1;
+        
+        for(int i = 0; i < length; i++){
             comChar = str.charAt(i);
-            for(int j = 0; j < 4; j++){
+            System.out.println("i len=" + length);
+            
+            for(int j = 0; j < length-i; j++){
             c = str.charAt(i+j+1);
             System.out.println("i=" + i + " " + "j=" + j + " " + comChar + ":" + c);
                 if(c == comChar){
                     System.out.println(c + ":" + comChar);
-                    str = str.delete(j,j+1);
-                    System.out.println("str=" + str);
+                    str = str.delete(i+j+1,i+j+2);
+                    System.out.println("------------------str=" + str);
+                    length--;
                 }
             }
-            str1.append(c);
-            comChar = str.charAt(i+1);
+
         }
+        
         System.out.println("Ans str=" + str);
-        System.out.println("Ans str1=" + str1);
     }
 }

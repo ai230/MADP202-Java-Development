@@ -54,7 +54,9 @@ public class StrProgram {
         System.out.println(str4.replace('a','A'));
         System.out.println("");
         
-        StringBuffer str = new StringBuffer("pit");
         
+        
+        //5)
+      
     }
 }
