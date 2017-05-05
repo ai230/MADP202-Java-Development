@@ -17,7 +17,7 @@ public class Assignment3 {
         Write a Java program to get a number from the user and print whether it is positive or negative. 
         Test Data Input number: 35 Expected Output : Number is positive*/
         
-        Scanner reader1 = new Scanner(System.in);  // Reading from System.in
+        /*Scanner reader1 = new Scanner(System.in);  // Reading from System.in
         System.out.println("Input number: ");
         int num = reader1.nextInt(); // Scans the next token of the input as an int.
         
@@ -28,6 +28,7 @@ public class Assignment3 {
         else{
             System.out.println("Your number is negative");
         }
+        */
         
         //2)
         /*Write a Java program that takes the user to provide a single character 
@@ -41,7 +42,7 @@ public class Assignment3 {
         System.out.println("Input an alphabet: ");
         String str2 = reader2.nextLine();
         boolean isNumber;
-       
+        boolean isVowel = true;
         
         if(str2.length() > 1){
             System.out.println("Error : Input number is not an alphabet");
@@ -58,16 +59,29 @@ public class Assignment3 {
                 isNumber = false;
             }
             if(isNumber == false){
-                //not working
-                if((str2 != "a") || (str2 != "e") || (str2 != "i") || (str2 != "u") || (str2 != "o")){
-                    System.out.println("Input letter is Consonant");
+                
+                switch(str2){
+                    case "a":
+                        break;
+                    case "e":
+                        break;
+                    case "i":
+                        break;
+                    case "u":
+                        break;
+                    case "o":
+                        break;
+                    default:
+                        isVowel = false;
+                        break;     
+                }
+                
+                if(isVowel){
+                    System.out.println("Input letter is vowel");
                 }else{
-                    System.out.println("Input letter is Vowel");
+                    System.out.println("Input letter is Consonant");
                 }
             }
-         
         }
-        
-
     }//end main
 }
