@@ -30,6 +30,13 @@ public class Student {
         gradeAverage = this.points / this.creditHours;
     }
     
+    public Student(int ID, int creditHours){
+        this.ID = ID;
+        this.creditHours = creditHours;
+        this.points = 12;
+        gradeAverage = this.points / this.creditHours;
+    }
+    
     @Override
     public String toString() {
         String description = "";

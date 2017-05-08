@@ -4,18 +4,25 @@
  * and open the template in the editor.
  */
 package assignment1;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 /**
  *
  * @author yamamotoai
  */
 public class test {
 
-    public static void main(String[] args){
-        for(int i=0;i>4?false:true;i++){
-
-            System.out.println("i="+i);
-
-        }
+    public static void main(String args[]) {
+               ArrayList<String> obj = new ArrayList<String>();
+          obj.add("Ajeet");
+	  obj.add("Harry");
+	  obj.add("Chaitanya");
+	  obj.add("Steve");
+	  obj.add("Anuj");
+          
+          obj.sort((p1, p2) -> p2.compareTo(p1));
+          System.out.println(obj);
+         
     }
 }
