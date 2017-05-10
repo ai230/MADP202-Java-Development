@@ -1,0 +1,4 @@
+This String would be written to the specified File
+This is first line
+This is the second line
+This is third line
