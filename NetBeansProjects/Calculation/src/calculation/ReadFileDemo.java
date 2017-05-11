@@ -10,10 +10,13 @@ import java.io.*;
 public class ReadFileDemo {
 
     public static void main(String[] args) {
-        File file = new File("test.txt");
+        File file = new File(" .txt");
         FileInputStream fis = null;
         BufferedInputStream bis = null;
 
+        String s = null;
+        System.out.println(s.length());
+        
         try {
             //FileInputStream to read the file
             fis = new FileInputStream(file);

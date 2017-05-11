@@ -10,9 +10,9 @@ import java.io.*;
 public class WriteFileDemo {
 
     public static void main(String[] args) {
-        File file = new File("test.txt");
+        File file = new File("testtest1.txt");
         FileOutputStream fos = null;
-        String str = "This is my Data which needs"
+        String str = "----This is my Data which needs"
                 + " to be written into the file --------------------------hello";
         try {
             fos = new FileOutputStream(file);
@@ -20,8 +20,8 @@ public class WriteFileDemo {
 	   * exists or not. If the file is not found
 	   * at the specified location it would create
 	   * a new file*/
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!file.exists()) { 
+                file.createNewFile();              
             }
 
             /*String content cannot be directly written into
