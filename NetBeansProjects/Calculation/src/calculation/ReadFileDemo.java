@@ -13,9 +13,6 @@ public class ReadFileDemo {
         File file = new File(" .txt");
         FileInputStream fis = null;
         BufferedInputStream bis = null;
-
-        String s = null;
-        System.out.println(s.length());
         
         try {
             //FileInputStream to read the file
