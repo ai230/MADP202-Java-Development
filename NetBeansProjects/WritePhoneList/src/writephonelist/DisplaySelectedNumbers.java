@@ -29,7 +29,7 @@ public class DisplaySelectedNumbers {
         String fileName = ("DisplaySelectedNumbers.txt");
 
         int i;
-        for ( i = 0; i < 2; i++) {
+        for (i = 0; i < 2; i++) {
             StringBuilder str = new StringBuilder("");
 
             Scanner scanFName = new Scanner(System.in);
