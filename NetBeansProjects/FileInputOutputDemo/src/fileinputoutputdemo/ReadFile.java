@@ -16,13 +16,16 @@ public class ReadFile {
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         
+        StringBuilder str = new StringBuilder();
+        
         try {
             fis = new FileInputStream(file);//FileInputStream
             bis = new BufferedInputStream(fis);//BufferedInputStream for
 
             //available() method of BufferedInputStream returns 0 when there are no more bytes
             while (bis.available() > 0) {
-                System.out.print((char) bis.read());
+                str.append((char) bis.read());
+                System.out.println(str);
             }
 
         } catch (IOException ioe) {
