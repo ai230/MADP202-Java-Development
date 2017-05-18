@@ -59,7 +59,7 @@ public class Song extends Albam{
     
     
     public String toString() {
-	String str = "Title: " + title + " Price: $" + price + " Artist Name: " + artistName + " albamTitle: " + albamTitle;
+	String str = "Title: " + title + " Price: $" + price + " Artist Name: " + artistName + "    AlbamTitle: " + albamTitle;
         return str;
     }
 

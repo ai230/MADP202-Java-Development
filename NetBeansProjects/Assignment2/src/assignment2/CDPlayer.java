@@ -71,8 +71,28 @@ public class CDPlayer {
         Collections.shuffle(album.getAlbamList());
     }
         
+    public void addNewSong(Albam album){
+        System.out.println("----------------------------");
+        System.out.println("9. Add new song");
+        System.out.println("----------------------------");
+                        
+        Scanner scanTitle = new Scanner(System.in);
+        Scanner scanPrice = new Scanner(System.in);
+        Scanner scanArtistName = new Scanner(System.in);
+        Scanner scanAlbamTitle = new Scanner(System.in);
+                        
+        System.out.print("Enter Title of song: ");                       
+        String title = scanTitle.nextLine();
+        System.out.print("Enter Price of song: ");                       
+        double price = scanPrice.nextDouble();
+        System.out.print("Enter ArtistName of song: ");                       
+        String artistName = scanArtistName.nextLine();
+        System.out.print("Enter AlbamTitle of song: ");                       
+        String albamTitle = scanAlbamTitle.nextLine();
 
-
+        Song newSong = new Song(title , price, artistName, albamTitle);
+        album.addCD(newSong);
+    }
     
     //Read file and add album
     public void readFile(Albam album){
@@ -113,5 +133,11 @@ public class CDPlayer {
         }
     }
     
-    
+    public void showMenu(){
+        System.out.println("************************************************");
+        System.out.println("******************** MENU **********************");
+        System.out.println("(1) Display");
+        System.out.println("(2) ");
+        System.out.println("************************************************");
+    }
 }
