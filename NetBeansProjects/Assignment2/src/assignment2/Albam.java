@@ -25,7 +25,6 @@ public class Albam {
 
     //getter
     public List<Song> getAlbamList() {
-        System.out.println("a" + albamList);
         return albamList;
     }
 
@@ -36,7 +35,7 @@ public class Albam {
     public void addCD(Song s) {
         albamList.add(s);
 //        String str = albamList.toString();
-        System.out.println("add:" + albamList.toString());
+//        System.out.println("add:" + albamList.toString());
         this.totalCost = this.totalCost + s.getPrice();
     }
         

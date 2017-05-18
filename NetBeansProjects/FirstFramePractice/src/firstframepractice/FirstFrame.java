@@ -4,15 +4,24 @@
  * and open the template in the editor.
  */
 package firstframepractice;
-
+import java.sql.*;
+import javax.swing.JFrame;
 //import java.text.DecimalFormat;
 
 /**
  *
  * @author yamamotoai
  */
-public class FirstFrame extends javax.swing.JFrame {
-
+public class FirstFrame extends JFrame{
+    static final String JDBC_DRIVER = "org.apache.derby.jdbc.ClientDriver";  
+    static final String DB_URL = "jdbc:derby://localhost:1527/Student";
+    //  Database credentials
+    static final String USER = "APP";
+    static final String PASS = " ";
+    
+    public int id = 0;
+    public String name;
+    public String pass;
     /**
      * Creates new form FirstFrame
      */
@@ -169,13 +178,8 @@ public class FirstFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
-        if(txtName.getText().equals("Ai") && txtPassword.getText().equals("ai")){
-            lblMessage.setText("Login successs");
+              
 
-        }else{
-           lblMessage.setText("Login faild");
-        }
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -228,7 +232,9 @@ public class FirstFrame extends javax.swing.JFrame {
                 new FirstFrame().setVisible(true);
             }
         });
-    }
+        
+
+    }//main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalCFromF;
