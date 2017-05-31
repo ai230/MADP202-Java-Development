@@ -9,16 +9,30 @@ package assignment2;
  *
  * @author yamamotoai
  */
-public class PopMusic extends Song {
+public class PopMusic extends Song implements CreditInfo{
 
-    public PopMusic(String CDTitle, double CDPrice, String artistName, String albamTitle) {
-        super(CDTitle, CDPrice, artistName, albamTitle);
+    public PopMusic(String CDTitle, double CDPrice, String artistName, String albamTitle, String genre) {
+        super(CDTitle, CDPrice, artistName, albamTitle, genre);
     }
 
-//    @Override
-//    void saySomething() {
-//        System.out.println("Pop Boooooo!!!!");
-//    }
-
+    public PopMusic(){
     
+    }
+    
+    @Override
+    void play() {
+        System.out.println("Play Pop Music!!");
+    }
+
+    @Override
+    public void info(Album album, int index) {
+        if(album.getAlbumList().get(index-1).getGenre().contains("Pop")){
+            System.out.println("<<<POP>>>");
+            System.out.println("[Title] " + album.getAlbumList().get(index-1).getTitle());
+            System.out.println("[Artist] " + album.getAlbumList().get(index-1).getArtistName());
+            System.out.println("[Price] " + album.getAlbumList().get(index-1).getPrice());
+            System.out.println("");
+        }
+    }
+   
 }

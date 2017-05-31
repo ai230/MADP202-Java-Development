@@ -12,20 +12,20 @@ import java.util.List;
  *
  * @author yamamotoai
  */
-public class Albam {
+public class Album {
 
-    private List<Song> albamList;
+    private List<Song> albumList;
     private double totalCost;
 
     //constructor
-    public Albam() {
-        albamList = new ArrayList<Song>();
+    public Album() {
+        albumList = new ArrayList<Song>();
         totalCost = 0.0;
     }
 
     //getter
-    public List<Song> getAlbamList() {
-        return albamList;
+    public List<Song> getAlbumList() {
+        return albumList;
     }
 
     public double getTotalCost() {
@@ -33,7 +33,7 @@ public class Albam {
     }
 
     public void addCD(Song s) {
-        albamList.add(s);
+        albumList.add(s);
 //        String str = albamList.toString();
 //        System.out.println("add:" + albamList.toString());
         this.totalCost = this.totalCost + s.getPrice();

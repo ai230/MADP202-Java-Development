@@ -1,5 +1,6 @@
-A, 10.99, Ai, AlbumTitle1
-B, 11.99, Ai, AlbumTitle2
-C, 11.99, KEI, AlbumTitle3
-D, 11.99, KEI, AlbumTitle4
-E, 13.99, Ma, AlbumTitle5
+Grenade, 10.99, Bruno Mars, Doo-Wops & Hooligans, Pop
+Just The Way You Are, 11.99, Bruno Mars, Doo-Wops & Hooligans, Pop
+Our First Time, 11.99, Bruno Mars, Doo-Wops & Hooligans, Pop
+Don't Know Why, 11.99, Norah Jones, Come Away With Me, Jazz
+Seven Years, 13.99, Norah Jones, Come Away With Me, Jazz
+Cold Cold Heart, 13.99, Norah Jones, Come Away With Me, Jazz

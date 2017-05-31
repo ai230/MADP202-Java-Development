@@ -11,10 +11,18 @@ package videostore;
  */
 public class Movies {
     private String name;
-    private int price;
+    private Double price;
 
-    public Movies(String name, int price) {
+    public Movies(String name, double price) {
         this.name = name;
+        this.price = price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -22,9 +30,13 @@ public class Movies {
         return name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
  
-    
+    public double getTotalPrice() {
+        double totalPrice = 0.00;
+        totalPrice += totalPrice + this.price;
+        return totalPrice;
+    }
 }

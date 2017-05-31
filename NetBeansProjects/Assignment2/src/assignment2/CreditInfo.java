@@ -9,6 +9,6 @@ package assignment2;
  *
  * @author yamamotoai
  */
-class track {
-    
+public interface CreditInfo {
+    abstract public void info(Album album, int index);
 }

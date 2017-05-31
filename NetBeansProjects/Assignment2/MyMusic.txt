@@ -1,0 +1,6 @@
+1) Title: Just The Way You Are Price: $11.99 Artist Name:  Bruno Mars    AlbamTitle:  Doo-Wops & Hooligans Genre:  Pop
+2) Title: Our First Time Price: $11.99 Artist Name:  Bruno Mars    AlbamTitle:  Doo-Wops & Hooligans Genre:  Pop
+3) Title: Don't Know Why Price: $11.99 Artist Name:  Norah Jones    AlbamTitle:  Come Away With Me Genre:  Jazz
+4) Title: Seven Years Price: $13.99 Artist Name:  Norah Jones    AlbamTitle:  Come Away With Me Genre:  Jazz
+5) Title: Cold Cold Heart Price: $13.99 Artist Name:  Norah Jones    AlbamTitle:  Come Away With Me Genre:  Jazz
+6) Title: Khamoshiyan Price: $10.0 Artist Name: Arijit    AlbamTitle: aaa Genre: Jazz

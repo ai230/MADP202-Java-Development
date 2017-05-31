@@ -16,67 +16,35 @@ import java.util.Scanner;
 public class User {
     private int songNum = 0;
         public static void main(String[] args) {
-            Scanner scan = new Scanner(System.in);
+            Scanner scanNum = new Scanner(System.in);
             
             boolean isDone = false;
-            Song s1 = new Song("A" , 10.99, "Ai", "AlbamTitle1");
-            Song s2 = new Song("B" , 10.99, "Ai2", "AlbamTitle2");
-            Song s3 = new Song("C" , 10.99, "Ai", "AlbamTitle1");
-            Song s4 = new Song("D" , 10.99, "Ai2", "AlbamTitle2");
-//            List<Song> list = new ArrayList<Song>();
-//            list.add(s1);
-//            list.add(s2);
             
-            Albam album = new Albam();
-            album.addCD(s1);
-            album.addCD(s2);
-            album.addCD(s3);
-            album.addCD(s4);
+            Album album = new Album();
             User user = new User();
             CDPlayer player = new CDPlayer();
-        
-            while(!isDone){               
-                System.out.print("Input number: ");
+            PopMusic pm = new PopMusic();
+            JazzMusic jm = new JazzMusic();
+            
+            while(!isDone){   
                 player.showMenu();
-                int n = scan.nextInt();
-                switch(n){
+                System.out.print("Input number: ");
+                int n = scanNum.nextInt();
+                switch(n){ 
+                    case 0://play
+                        pm.play();
+                        jm.play();
+                        break;
                     case 1://display
                         System.out.println("----------------------------");
                         System.out.println("1. Display");
                         System.out.println("----------------------------");
                         player.display(album);
                         break;
-                    case 2://CDSelector
-                        Scanner scan1 = new Scanner(System.in);
-                        System.out.print("Input album title: ");
-                        String strAlbum = scan1.nextLine();
-                        player.CDSelector(strAlbum, album);
+                    case 2://add new song
+                        player.addNewSong(album);
                         break;
-                    case 3://trackSelector
-                        Scanner scan2 = new Scanner(System.in);
-                        System.out.print("Input song title: ");
-                        String strSong = scan2.nextLine();
-                        player.trackSelector(strSong, album);
-                        break;
-                    case 4://Total Cost
-                        System.out.println("----------------------------");
-                        System.out.println("4. Total cost");
-                        System.out.println("----------------------------");
-                        
-                        System.out.println("Total cost is $" + album.getTotalCost());
-                        System.out.print("");
-                        break;
-                    case 5:
-                        System.out.println("----------------------------");
-                        System.out.println("5. Read file");
-                        System.out.println("----------------------------");
-                        player.readFile(album);                     
-                        break;
-                    case 6://delete
-                        System.out.println("----------------------------");
-                        System.out.println("6. Delete");
-                        System.out.println("----------------------------");
-                        
+                    case 3://delete
                         player.display(album);//Before delete
                         System.out.println("");
                         player.delete(album);
@@ -84,29 +52,54 @@ public class User {
                         player.display(album);//After delete
                         System.out.println("");
                         break;
-                    case 7://Shuffle
-                        System.out.println("----------------------------");
-                        System.out.println("7. Shuffle");
-                        System.out.println("----------------------------");
-                        
-                        player.shuffle(album);
+                    case 4://Shuffle//not working
                         player.display(album);//Before shuffle
+                        player.shuffle(album);
+                        
                         System.out.println(" ------Shuffle succsess-------");
+                        player.display(album);//After shuffle
+                        System.out.println("");
+                        break;
+                    case 5://CDSelector
+                        Scanner scan1 = new Scanner(System.in);
+                        System.out.print("Input album title: ");
+                        String strAlbum = scan1.nextLine();
+                        player.CDSelector(strAlbum, album);
+                        break;
+                    case 6://trackSelector
+                        Scanner scan2 = new Scanner(System.in);
+                        System.out.print("Input song title: ");
+                        String strSong = scan2.nextLine();
+                        player.trackSelector(strSong, album);
+                        break;
+                    case 7://Credit infomation
+                        System.out.println("----------------------------");
+                        System.out.println("7. Credit infomation");
+                        System.out.println("----------------------------");
                         player.display(album);
-                        System.out.println("");//After shuffle
+                        Scanner scan7 = new Scanner(System.in);
+                        System.out.print("Enter a number of song you want to see the info: ");
+                        int index = scan7.nextInt();
+                        
+                        pm.info(album,index);
+                        jm.info(album,index);
                         break;
                     case 8:
                         System.out.println("----------------------------");
-                        System.out.println("8. Get next song");
+                        System.out.println("8. Total Price");
                         System.out.println("----------------------------");
+                        System.out.println("Total cost is $" + album.getTotalCost());
+                        break;
+                    case 9:                      
+                        break;
+                    case 10:
+                        player.readFile(album);
                         player.display(album);
-                        System.out.println("");
-//                        player.getNextSong(albam);//TODO
                         break;
-                    case 9:
-                        player.addNewSong(album);
+                    case 11:
+                        player.writeFile(album);
                         break;
-                    case 0:
+                    case 999:
                         isDone = true;
                         System.out.println("END!!!");
                         break;
