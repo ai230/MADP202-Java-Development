@@ -1,7 +1,12 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package serchpractice;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -10,10 +15,20 @@ import java.util.Arrays;
 public class SerchPractice {
 
     public static void main(String[] args) {
-        Integer[] arr = {10, 4, 70, 5, 2, 3, 0};
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < 10; i++) {
+            Random rand = new Random();
+            int n = rand.nextInt(30) + 1;
+            arr[i] = n;
+        }
+
         int min = 0;
         int max = arr.length - 1;
-        int target = 4;
+
+        Random rand = new Random();
+        int n = rand.nextInt(30) + 1;
+        int target = n;
+        System.out.println("Target: " + target);
         linearSerch(arr, min, max, target);
         binarySerch(arr, min, max, target);
     }
@@ -28,9 +43,9 @@ public class SerchPractice {
         }
         if (found) {
             for (int i = 0; i < data.length; i++) {
-                    System.out.print(data[i] + ", ");
-                }
-            
+                System.out.print(data[i] + ", ");
+            }
+            System.out.println("\n");
             System.out.println("Target: " + target + " index: " + (index - 1));
         } else {
             System.out.println("Target is not found");
@@ -45,17 +60,15 @@ public class SerchPractice {
             System.out.println("Target is not found");
             return -1;
         } else {
-            System.out.println("a");
             if (data[mid] < target) {
-                System.out.println("b");
                 return binarySerch(data, mid + 1, max, target);
             } else if (data[mid] > target) {
-                System.out.println("c");
                 return binarySerch(data, min, mid - 1, target);
             } else {
                 for (int i = 0; i < data.length; i++) {
                     System.out.print(data[i] + ", ");
                 }
+                System.out.println("\n");
                 System.out.println(" Target: " + target + " Position: " + mid);
                 return mid;
             }
