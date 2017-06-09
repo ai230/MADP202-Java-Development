@@ -6,6 +6,7 @@
 package jinsurance;
 
 //import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.Enumeration;
 import javax.swing.*;
 
@@ -70,6 +71,7 @@ public class JInsurance extends JFrame {
             } 
         });
         jPanel1.add(jButton2);
+        jPanel1.setBackground(Color.green);
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
         
 //        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
@@ -79,7 +81,7 @@ public class JInsurance extends JFrame {
         
         //panel2
         jPanel2.setLayout(new java.awt.GridLayout(2, 0));
-        
+        jPanel2.setBackground(Color.red);
         
 
         jCheckBox1.setText("Dental $75/m");

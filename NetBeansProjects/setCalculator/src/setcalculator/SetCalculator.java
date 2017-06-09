@@ -58,43 +58,42 @@ public class SetCalculator {
         }
         fin = false;
 
-        System.out.println("1) + union, 2) * intersection, 3) - difference ");
-        System.out.println("Enter: ");
+        System.out.println("+: union, *: intersection, -: difference ");
+        System.out.print("Enter: ");
         String o = ope.nextLine();
 
         System.out.println("Input");
         System.out.println("------");
-//        while (fin2) {
-            switch (o) {
-                case "+":
-                    System.out.println(ts1 + " + " + ts2);
 
-                    printOutput();
-                    ts1.addAll(ts2);
-                    System.out.println(ts1);
-                    break;
-                case "*":
-                    System.out.println(ts1 + " + " + ts2);
+        switch (o) {
+            case "+":
+                System.out.println(ts1 + " + " + ts2);
 
-                    printOutput();
-                    ts1.retainAll(ts2);
-                    System.out.println(ts1);
-                    break;
-                case "-":
-                    System.out.println(ts1 + " + " + ts2);
+                printOutput();
+                ts1.addAll(ts2);
+                System.out.println(ts1);
+                break;
+            case "*":
+                System.out.println(ts1 + " + " + ts2);
 
-                    printOutput();
-                    ts1.removeAll(ts2);
-                    System.out.println(ts1);
-                    break;
-                case "q":
-                    fin2 = false;
-                    break;
-                default:
-                    System.out.println("Input error!!");
-                    break;
-            }
-//        }
+                printOutput();
+                ts1.retainAll(ts2);
+                System.out.println(ts1);
+                break;
+            case "-":
+                System.out.println(ts1 + " + " + ts2);
+
+                printOutput();
+                ts1.removeAll(ts2);
+                System.out.println(ts1);
+                break;
+            case "q":
+                fin2 = false;
+                break;
+            default:
+                System.out.println("Input error!!");
+                break;
+        }
     }
 
     public static boolean isNumeric(String str) {
