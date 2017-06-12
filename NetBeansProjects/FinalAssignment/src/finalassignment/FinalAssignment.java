@@ -171,7 +171,7 @@ public class FinalAssignment extends JFrame {
 
                     tableModel.addRow(obj);
                 }
-                totalAmountLbl.setText("<Total Expence> $" + totalExpence + " <Total Income> $" + totalIncome);
+                totalAmountLbl.setText("<Total Expence> $" + String.format("%.2f",totalExpence) + " <Total Income> $" + String.format("%.2f",totalIncome));
             }
         });
 
@@ -208,7 +208,7 @@ public class FinalAssignment extends JFrame {
                             tableModel.addRow(obj);
                         }
                     }
-                    totalAmountLbl.setText("<Total Expence> $" + totalExpence);
+                    totalAmountLbl.setText("<Total Expence> $" + String.format("%.2f", totalExpence));
 
                 } else if (selectedValue.matches("Income")) {
                     for (int i = 0; i < dataList.size(); i++) {
@@ -221,7 +221,7 @@ public class FinalAssignment extends JFrame {
                             tableModel.addRow(obj);
                         }
                     }
-                    totalAmountLbl.setText(" <Total Income> $" + totalIncome);
+                    totalAmountLbl.setText(" <Total Income> $" + String.format("%.2f", totalIncome));
                 } else {
 
                 }
