@@ -5,73 +5,100 @@
  */
 package finalassignment;
 
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author yamamotoai
  */
 public class FinalAssignment extends JFrame {
-
-    //  Database
-    static final String JDBC_DRIVER = "org.apache.derby.jdbc.ClientDriver";  
-    static final String DB_URL = "jdbc:derby://localhost:1527/QuickMoney";
-    //  Database credentials
-    static final String USER = "APP";
-    static final String PASS = " ";
     
-    private final int WIDTH = 500, HEIGHT = 500;
-
-    private JLabel display = new JLabel("$0");
+    ControllDB controllDB = new ControllDB();
+    
+    private JLabel displayLbl = new JLabel("$0");
     private JButton enterBtn = new JButton("Ent");
     private JButton clearBtn = new JButton("Clr");
-    private JButton btn0 = new JButton("0");
-    private JButton btn00 = new JButton("00");
+    private JTextField txt = new JTextField("aaaaa");
+    private JButton listBtn = new JButton("List");
+    private JLabel totalAmountLbl = new JLabel("Total $");
+    private JTable table;
+    private DefaultTableModel tableModel;
+    
+    private String[] colName = {"#", "Date", "Property", "Category", "Amount($)"};
 
     private double number;
-
     private String numStr = "";
-
+    
+    String dateStr;
+    String category;
+    String property;
+    
     public FinalAssignment() {
 
-        setSize(WIDTH, HEIGHT);
-        setTitle("Calculator");
-
-        //Panel North
-        String income[] = {"Income", "Salaries", "Tax"};
-        String expense[] = {"Expense", "Rent", "Insurance", "Food"};
-        JComboBox combo1 = new JComboBox(income);
-        JComboBox combo2 = new JComboBox(expense);
-//        list.setBounds(100, 100, 75, 75);
-        
+        //--Panel North--
         JPanel pn = new JPanel();
         pn.setLayout(new BoxLayout(pn, BoxLayout.Y_AXIS));
-        pn.add(combo1);
-        pn.add(combo2);
-        pn.add(display);
 
-        //panel Center
+        //current date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        dateStr = dateFormat.format(date);
+        
+        setTitle("Quick Money " + dateStr);
+
+        //combo
+        String categoryList[] = {"-- Choose Category--", "Rent", "Insurance", "Food", "Income"};
+        JComboBox combo = new JComboBox(categoryList);
+        pn.add(combo);
+        combo.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cmd = (String) combo.getSelectedItem();
+                System.out.println("clicked combo" + cmd);
+                
+                if (cmd.matches("-- Choose --")) {
+                    
+                } else if (cmd.matches("Income")) {
+                    property = "income";
+                    category = cmd;
+                } else {
+                    property = "expence";
+                    category = cmd;
+                }
+            }
+            
+        });
+
+        //display amount label
+        pn.add(displayLbl);
+
+        //--panel Center--
         JPanel pc = new JPanel();
         pc.setLayout(new GridLayout(4, 4, 10, 10));
-
-        String buttonLabels = "789456123";
-        for (int i = 0; i < buttonLabels.length(); i++) {
-            JButton btn = new JButton(buttonLabels.substring(i, i + 1));
+        
+        String[] btnlbls = {"7", "8", "9", "4", "5", "6", "1", "2", "3", "00", "0", "."};
+        for (int i = 0; i < btnlbls.length; i++) {
+            JButton btn = new JButton(btnlbls[i]);
             pc.add(btn);
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
-
+                    
                     String cmd = e.getActionCommand();
                     numStr += cmd;
                     number = Double.parseDouble(numStr);
@@ -81,84 +108,182 @@ public class FinalAssignment extends JFrame {
             });
         }
 
-        //panel East
+        //--panel East--
         JPanel pe = new JPanel();
         pe.setLayout(new BoxLayout(pe, BoxLayout.Y_AXIS));
-
-        DefaultListModel<String> l1 = new DefaultListModel<>();
-        l1.addElement("Income");
-        l1.addElement("ExPense");
-        JList<String> list = new JList<>(l1);
-//        list.setBounds(100, 100, 75, 75);
-        pe.add(list);
         
         pe.add(clearBtn);
         clearBtn.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 number = 0;
                 numStr = "";
                 display(number);
             }
-
+            
         });
         pe.add(enterBtn);
         enterBtn.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
+                ArrayList<InputData> dataListEnt = new ArrayList<>();
                 String cmd = e.getActionCommand();
-                System.err.println("clicked " + cmd);
+                System.out.println("clicked " + cmd);
+
+                //(1)read Database ->(2)create array of data ->(3)insert data to database
+                dataListEnt = controllDB.readDB();
+                
+                try {
+                    //TODO try to get property and category 
+                    controllDB.insertDB(dataListEnt.size() + 1, property, category, number, dateStr);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FinalAssignment.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
-
-        });
-        //Panel south
-        JPanel ps = new JPanel();
-        ps.setLayout(new FlowLayout());
-        ps.add(btn0);
-        btn0.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                String cmd = e.getActionCommand();
-                numStr += cmd;
-                number = Double.parseDouble(numStr);
-                display(number);
-                System.err.println("clicked " + cmd);
-            }
-
-        });
-        ps.add(btn00);
-        btn00.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                String cmd = e.getActionCommand();
-                numStr += cmd;
-                number = Double.parseDouble(numStr);
-                display(number);
-                System.err.println("clicked " + cmd);
-            }
-
+            
         });
         
-        getContentPane().add(pn, java.awt.BorderLayout.NORTH);
-        getContentPane().add(pc, java.awt.BorderLayout.CENTER);
-        getContentPane().add(pe, java.awt.BorderLayout.EAST);
-        getContentPane().add(ps, java.awt.BorderLayout.SOUTH);
+        pe.add(listBtn);
+        listBtn.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<InputData> dataList = new ArrayList<>();
+                dataList = controllDB.readDB();
+                
+                String setTxtArea = "";
+                double totalExpence = 0.0;
+                double totalIncome = 0.0;
+                tableModel.setRowCount(0);
+                for (int i = 0; i < dataList.size(); i++) {
+                    
+                    if (dataList.get(i).getProperty().matches("expence")) {
+                        
+                        totalExpence += dataList.get(i).getAmount();
+                        
+                    } else {
+                        
+                        totalIncome = dataList.get(i).getAmount();;
+                        
+                    }
+                    Object[] obj = {dataList.get(i).getID(), dataList.get(i).getDate(), dataList.get(i).getProperty(), dataList.get(i).getCategory(), dataList.get(i).getAmount()};
+                    
+                    tableModel.addRow(obj);
+//                    setTxtArea += dataList.get(i).toString();
+                }
+                totalAmountLbl.setText("<Total Expence> $" + totalExpence + " <Total Income> $" + totalIncome);
+//                txtArea.setText("<Total Expence> $" + totalExpence + " <Total Income> $" + totalIncome + "\n\n" + setTxtArea);
+            }
+        });
+
+        //DefaultListModel
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        
+        listModel.addElement(
+                "--Select--");
+        listModel.addElement(
+                "Expence");
+        listModel.addElement(
+                "Income");
+        JList<String> JList = new JList<>(listModel);
+        
+        pe.add(JList);
+        
+        JList.addListSelectionListener(
+                new ListSelectionListener() {
+                    
+                    @Override
+                    public void valueChanged(ListSelectionEvent e
+                    ) {
+                        ArrayList<InputData> dataList = new ArrayList<>();
+                        dataList = controllDB.readDB();
+                        
+                        String setTxtArea = "";
+                        double totalExpence = 0.0;
+                        double totalIncome = 0.0;
+                        
+                        String selectedValue = JList.getSelectedValue();
+                        tableModel.setRowCount(0);
+                        if (selectedValue.matches("Expence")) {
+                            for (int i = 0; i < dataList.size(); i++) {
+                                
+                                if (dataList.get(i).getProperty().matches("expence")) {
+                                    
+                                    totalExpence += dataList.get(i).getAmount();
+                                    setTxtArea += dataList.get(i).toString();
+                                    
+                                    Object[] obj = {dataList.get(i).getID(), dataList.get(i).getDate(), dataList.get(i).getProperty(), dataList.get(i).getCategory(), dataList.get(i).getAmount()};
+                    
+                                    tableModel.addRow(obj);
+                                }
+                            }
+                            totalAmountLbl.setText("<Total Expence> $" + totalExpence);
+//                            txtArea.setText("<Total Expence> $" + totalExpence + "\n\n" + setTxtArea);
+                        } else if (selectedValue.matches("Income")) {
+                            for (int i = 0; i < dataList.size(); i++) {
+                                
+                                if (dataList.get(i).getProperty().matches("income")) {
+                                    
+                                    totalIncome += dataList.get(i).getAmount();
+                                    setTxtArea += dataList.get(i).toString();
+                                    
+                                    Object[] obj = {dataList.get(i).getID(), dataList.get(i).getDate(), dataList.get(i).getProperty(), dataList.get(i).getCategory(), dataList.get(i).getAmount()};
+                    
+                                    tableModel.addRow(obj);
+                    
+                                }
+                            }
+                            totalAmountLbl.setText(" <Total Income> $" + totalIncome);
+//                            txtArea.setText(" <Total Income> $" + totalIncome + "\n\n" + setTxtArea);
+                        } else {
+                            
+                        }
+                    }
+                    
+                }
+        );
+
+        //--Panel south--
+        JPanel ps = new JPanel();
+        
+        ps.setLayout(
+                new BoxLayout(ps, BoxLayout.Y_AXIS));
+        
+        ps.add(totalAmountLbl);
+        tableModel = new DefaultTableModel(colName, 0);
+        JTable table = new JTable(tableModel);
+        JScrollPane scroll = new JScrollPane(table);
+        
+        scroll.setPreferredSize(new Dimension(600, 300));
+        
+        
+        ps.add(scroll);
+        
+        getContentPane()
+                .add(pn, java.awt.BorderLayout.NORTH);
+        getContentPane()
+                .add(pc, java.awt.BorderLayout.CENTER);
+        getContentPane()
+                .add(pe, java.awt.BorderLayout.EAST);
+        getContentPane()
+                .add(ps, java.awt.BorderLayout.SOUTH);
         pack();
+        
         setVisible(true);
     }
-
+    
     public void display(Double number) {
         System.out.println(numStr);
-        display.setText("$" + number.toString());
+        displayLbl.setText("$" + number.toString());
     }
-
+    
     public static void main(String[] args) {
+        
         new FinalAssignment();
-
+        
     }
-
+    
 }

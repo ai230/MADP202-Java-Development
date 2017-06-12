@@ -20,7 +20,7 @@ public class JEMail extends JFrame{
     private JTextArea area;
     public JEMail() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setSize(1000, 1000);
         Container contentPane = getContentPane();
         setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         JTextField txt1 = new JTextField("TO:");
