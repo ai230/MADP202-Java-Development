@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package finalassignment;
 
 import java.sql.Connection;
@@ -13,10 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author yamamotoai
- */
+
 public class ControllDB {
 
     //  Database
@@ -25,14 +18,13 @@ public class ControllDB {
     //  Database credentials
     static final String USER = "APP";
     static final String PASS = " ";
-    
-    
+
     public static ArrayList<InputData> readDB() {
-        
+
         ArrayList<InputData> dataList = new ArrayList<>();
-        
+
         Connection con = null;
-        Statement statement = null;  
+        Statement statement = null;
 
         int numRow = 0;
         try {//STEP 2: Register JDBC driver
@@ -49,26 +41,26 @@ public class ControllDB {
             sql = "SELECT * FROM DETAIL";
             ResultSet rs = statement.executeQuery(sql);
             ResultSetMetaData rsmd = rs.getMetaData();
-            numRow = rs.getRow();
+            
             //STEP 5: Extract data from result set
             System.out.println("<<Display values in the DB>>");
             while (rs.next()) {
-  
+                numRow = rs.getRow();
                 //Display values
                 System.out.print("#: " + rs.getRow());
-                System.out.print("ID: " + rs.getString("ID"));
+                System.out.print("ID: " + rs.getString("CUST_ID"));
                 System.out.print(" CATEGORY: " + rs.getString("CATEGORY"));
                 System.out.print(" PROPERTY: " + rs.getString("PROPERTY"));
                 System.out.println(" AMOUNT: " + rs.getString("AMOUNT"));
-                
-                int id = Integer.parseInt(rs.getString("ID"));
+
+//                int id = Integer.parseInt(numRow);
                 String dateStr = rs.getString("DATE");
                 String category = rs.getString("CATEGORY");
                 String property = rs.getString("PROPERTY");
                 Double amount = Double.parseDouble(rs.getString("AMOUNT"));
-                
+
                 //create an object from the data in the DB
-                InputData data = new InputData(id, category, property, amount, dateStr);
+                InputData data = new InputData(rs.getRow(), category, property, amount, dateStr);
                 //Add to the arraylist
                 dataList.add(data);
 
@@ -87,7 +79,7 @@ public class ControllDB {
         return dataList;
     }
 
-    public static void insertDB(int id, String property, String category, Double amount, String dateStr) throws SQLException {
+    public static void insertDB(String dateStr, String property, String category, Double amount) throws SQLException {
         Connection con = null;
         Statement statement = null;
 
@@ -103,8 +95,8 @@ public class ControllDB {
             statement = con.createStatement();
             String sql;
             sql = "INSERT INTO DETAIL"
-                    + "(ID, PROPERTY, CATEGORY, AMOUNT, DATE) " + "VALUES"
-            + "(" + id + ",'"+ property + "','" + category + "'," + amount + ",'" + dateStr + "')";  
+                    + "(DATE, PROPERTY, CATEGORY, AMOUNT) " + "VALUES"
+                    + "('" + dateStr + "','" + property + "','" + category + "'," + amount + ")";
 
             System.out.println(sql);
             // STEP 5: insert the data
@@ -129,11 +121,14 @@ public class ControllDB {
 
     }
 
-    public static void deleteDB() throws SQLException {
+    public static void deleteDB(int selectedRow) throws SQLException {
 
+        ArrayList<InputData> dataList = new ArrayList<>();
+        boolean isDeleted = false; 
         Connection con = null;
         Statement statement = null;
 
+        int numRow = 0;
         try {//STEP 2: Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
@@ -145,30 +140,57 @@ public class ControllDB {
             System.out.println("Creating statement...");
             statement = con.createStatement();
             String sql;
-            sql = "DELETE FROM DETAIL WHERE ID = 1";
-      
-            // STEP 5: delete the data
-            statement.execute(sql);
-
+            sql = "SELECT * FROM DETAIL";
+            ResultSet rs = statement.executeQuery(sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
             
+//            //select * from ( select mystring , rownum rn  FROM teststring  ) where  rn = 2;
+            //STEP 5: Extract data from result set
+            System.out.println("<<Display values in the DB>>");
+            while (rs.next() && isDeleted == false) {
+//                numRow = rs.getRow();
+                //Display values
+                System.out.println("selectedRow: " + selectedRow); 
+                System.out.print("#: " + rs.getRow());
+                System.out.print("ID: " + rs.getString("CUST_ID"));
+                System.out.print(" CATEGORY: " + rs.getString("CATEGORY"));
+                System.out.print(" PROPERTY: " + rs.getString("PROPERTY"));
+                System.out.println(" AMOUNT: " + rs.getString("AMOUNT"));
+
+                if (rs.getRow() == selectedRow) {
+                    //Display values
+                    System.out.print("delete ");
+                    System.out.print("#: " + rs.getRow());
+                    System.out.print("ID: " + rs.getString("CUST_ID"));
+                    System.out.print(" CATEGORY: " + rs.getString("CATEGORY"));
+                    System.out.print(" PROPERTY: " + rs.getString("PROPERTY"));
+                    System.out.println(" AMOUNT: " + rs.getString("AMOUNT"));
+                
+                    String deleteSql = "DELETE FROM DETAIL WHERE CUST_ID =" + rs.getString("CUST_ID");
+                    // STEP 5: delete the data
+                    System.out.println("sql=" + deleteSql);
+                    statement.execute(deleteSql);
+                    System.out.println("Deleted succseed!");
+                    isDeleted = true;
+                }
+                if(isDeleted == true){
+                    System.out.println("in while if: isDeleted =  " + isDeleted);
+                    break;
+                }
+                System.out.println("in while: isDeleted =  " + isDeleted);
+            }
+            System.out.println("loop ended : isDeleted =  " + isDeleted);
+            dataList = null;
+            //STEP 6: Clean-up environment
+            rs.close();
+            statement.close();
+            con.close();
         } catch (SQLException se) {
             //Handle errors for JDBC
-            System.out.println("error!!! " +se.getMessage());
             se.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
-            System.out.println("error!!! " +e.getMessage());
             e.printStackTrace();
-        } finally {
-            //STEP 6: Clean-up environment
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (con != null) {
-                con.close();
-            }
         }
-
     }
 }
